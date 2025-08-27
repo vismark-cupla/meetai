@@ -37,6 +37,15 @@ export const account = pgTable("account", {
  updatedAt: timestamp('updated_at').notNull()
 				});
 
+export const agents = pgTable("agents", {
+					id: text('id').primaryKey(),
+					name: text('name').notNull(),
+					user_id: text('user_id').notNull().references(()=> user.id, { onDelete: 'cascade' }),
+					instructions: text('instructions').notNull(),
+					createdAt: timestamp('created_at').$defaultFn(() => /* @__PURE__ */ new Date()),
+					updatedAt: timestamp('updated_at').$defaultFn(() => /* @__PURE__ */ new Date())
+				});
+
 export const verification = pgTable("verification", {
 					id: text('id').primaryKey(),
 					identifier: text('identifier').notNull(),
