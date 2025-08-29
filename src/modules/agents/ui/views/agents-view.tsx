@@ -2,14 +2,26 @@
 
 import { ErrorState } from "@/components/error-state";
 import { LoadingState } from "@/components/loading-state";
+import { ResponsiveDialog } from "@/components/responsive-diaglog";
 import { useTRPC } from "@/trpc/client";
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 export const AgentsView = () => {
   const trpc = useTRPC();
   const { data } = useSuspenseQuery(trpc.agents.getMany.queryOptions());
 
-  return <pre>{JSON.stringify(data, null, 2)}</pre>;
+  return (
+    <div>
+      <ResponsiveDialog
+        title="Responsive test"
+        description="Responsive description"
+        open={true}
+        onOpenChange={() => {}}
+      >
+        <pre>{JSON.stringify(data, null, 2)}</pre>;
+      </ResponsiveDialog>
+    </div>
+  );
 };
 
 export const AgentsViewLoading = () => {
