@@ -38,12 +38,12 @@ export const account = pgTable("account", {
 				});
 
 export const agents = pgTable("agents", {
-					id: text('id').primaryKey(),
+					id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
 					name: text('name').notNull(),
-					user_id: text('user_id').notNull().references(()=> user.id, { onDelete: 'cascade' }),
+					userId: text('user_id').notNull().references(()=> user.id, { onDelete: 'cascade' }),
 					instructions: text('instructions').notNull(),
-					createdAt: timestamp('created_at').$defaultFn(() => /* @__PURE__ */ new Date()),
-					updatedAt: timestamp('updated_at').$defaultFn(() => /* @__PURE__ */ new Date())
+					createdAt: timestamp('created_at').notNull().defaultNow(),
+					updatedAt: timestamp('updated_at').notNull().defaultNow(),
 				});
 
 export const verification = pgTable("verification", {
