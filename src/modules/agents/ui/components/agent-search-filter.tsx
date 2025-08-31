@@ -13,12 +13,6 @@ export const AgentSearchFilter = () => {
         value={filters.search || ""}
         onChange={(e) => {
           setFilters({ search: e.target.value, page: filters.page });
-          console.log(
-            "search value:",
-            e.target.value,
-            " filters:",
-            filters.page
-          );
         }}
         className="h-9 bg-white w-[200px] pl-7"
       />

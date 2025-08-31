@@ -23,7 +23,6 @@ export const createTRPCRouter = t.router;
 export const createCallerFactory = t.createCallerFactory;
 export const baseProcedure = t.procedure;
 export const protectedProcedure = baseProcedure.use(async ({ ctx, next }) => {
-  console.log("Running protectedProcedure middleware");
   const session = await auth.api.getSession({
       headers: await headers(),
     });

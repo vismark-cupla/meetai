@@ -23,9 +23,6 @@ const Page = async ({ searchParams }: Props) => {
     headers: await headers(),
   });
 
-  console.log("SSR session:", session);
-  console.log("Filters:", filters);
-
   if (!session) {
     redirect("/sign-in");
   }
