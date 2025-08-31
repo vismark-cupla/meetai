@@ -8,6 +8,41 @@ import { DEFAULT_PAGE, MAX_PAGE_SIZE, MIN_PAGE_SIZE, DEFAULT_PAGE_SIZE } from "@
 import { TRPCError } from "@trpc/server";
 
 export const agentsRouter = createTRPCRouter({
+  update: protectedProcedure
+  .input(agentsInsertSchema.extend({ id: z.string().min(1, { message: "ID is required" }) }))
+  .mutation(async ({ input, ctx }) => {
+    const [updatedAgent] = await db
+      .update(agents)
+      .set(input)
+      .where(
+        and(
+          eq(agents.id, input.id),
+          eq(agents.userId, ctx.auth.user.id)
+        )
+      )
+      .returning();
+    if (!updatedAgent) {
+      throw new TRPCError({ code: "NOT_FOUND", message: "Agent not found" });
+    }
+    return updatedAgent;
+  }),
+  remove: protectedProcedure
+  .input(z.object({ id: z.string() }))
+  .mutation(async ({ input, ctx }) => {
+    const [removedAgent] = await db
+      .delete(agents)
+      .where(
+        and( 
+          eq(agents.id, input.id),
+          eq(agents.userId, ctx.auth.user.id)
+        )
+      )
+      .returning();
+    if (!removedAgent) {
+      throw new TRPCError({ code: "NOT_FOUND", message: "Agent not found" });
+    }
+    return removedAgent;
+  }),
   getOne: protectedProcedure.input(z.object({ id: z.string() })).query(async ({ input, ctx }) => {
     const [existingAgent] = await db
         .select({
