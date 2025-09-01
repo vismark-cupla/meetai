@@ -13,7 +13,6 @@ interface Props {
 }
 
 const Page = async ({ params }: Props) => {
-  console.log("Rendering AgentId Page with params:", params);
   const { agentId } = await params;
   const queryClient = getQueryClient();
   void queryClient.prefetchQuery(
