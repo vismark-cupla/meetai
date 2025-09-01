@@ -20,7 +20,7 @@ export const MeetingIdView = ({ meetingId }: Props) => {
 
   return (
     <>
-      <div>Test</div>
+      <div>{JSON.stringify(data)}</div>
     </>
   );
 };
