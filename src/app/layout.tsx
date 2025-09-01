@@ -6,6 +6,7 @@ import { TRPCReactProvider } from "@/trpc/client";
 import "./globals.css";
 import { Toaster } from "sonner";
 import { NuqsAdapter } from "nuqs/adapters/next";
+import NProgressProvider from "@/components/nprogress-provider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -27,6 +28,7 @@ export default function RootLayout({
         <link rel="icon" href="/logo.svg" type="image/svg+xml" />
         {/* ...other head tags... */}
       </head>
+      <NProgressProvider />
       <body className={`${inter.className} antialiased`}>
         <NuqsAdapter>
           <TRPCReactProvider>
