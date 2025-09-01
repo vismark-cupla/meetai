@@ -18,6 +18,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { GeneratedAvatar } from "@/components/generated-avatar";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 interface AgentFormProps {
   onSuccess?: () => void;
@@ -32,6 +33,7 @@ export const AgentForm = ({
 }: AgentFormProps) => {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const createAgent = useMutation(
     trpc.agents.create.mutationOptions({
@@ -45,6 +47,7 @@ export const AgentForm = ({
             trpc.agents.getOne.queryOptions({ id: initialValues.id })
           );
         }
+        router.refresh();
         onSuccess?.();
       },
       onError: (error) => {
@@ -59,6 +62,7 @@ export const AgentForm = ({
         await queryClient.invalidateQueries(
           trpc.agents.getMany.queryOptions({})
         );
+        router.refresh();
         onSuccess?.();
       },
       onError: (error) => {

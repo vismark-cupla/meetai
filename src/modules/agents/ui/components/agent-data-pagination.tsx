@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { DEFAULT_PAGE } from "@/constants";
+import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from "lucide-react";
 
 interface Props {
   page: number;
@@ -20,6 +21,7 @@ export const DataPagination = ({ page, totalPages, onPageChange }: Props) => {
           onClick={() => onPageChange(Math.max(1, page - 1))}
           size="sm"
         >
+          <ArrowLeftCircleIcon />
           Previous
         </Button>
         <Button
@@ -29,6 +31,7 @@ export const DataPagination = ({ page, totalPages, onPageChange }: Props) => {
           size="sm"
         >
           Next
+          <ArrowRightCircleIcon />
         </Button>
       </div>
     </div>
